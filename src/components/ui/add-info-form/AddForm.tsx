@@ -1,11 +1,13 @@
 import { ContactTypes } from "@/types/types";
 import { AddContactInfo } from "@/app/actions/actions";
-export default function AddForm({ contactTypes }: { contactTypes: ContactTypes[] }) {
+export default function AddForm({ contactTypes, refreshContactData, setIsAdding }: { contactTypes: ContactTypes[], refreshContactData: () => void, setIsAdding: (isAdding: boolean) => void }) {
   return (
     <form
       className="flex flex-col w-full items-center gap-2"
       action={async (formData) => {
+        setIsAdding(false);
         await AddContactInfo(formData);
+        refreshContactData();
       }}>
       <select
         name="type"

@@ -6,8 +6,9 @@ import { GetContactInfo, GetContactTypes, EditContactInfo } from "@/app/actions/
 import AddForm from "../add-info-form/AddForm";
 import DisplayEditForm from "../display-edit-form/DisplayEditForm";
 import AddButton from "@/components/ui/add-information-button/AddButton";
+import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
 
-export default function List() {
+export default function List({ contactName, isAdmin }: { contactName: string, isAdmin: boolean }) {
     const { contactInfo, contactTypes, loading, refreshContactData } = useContactData();
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
@@ -25,14 +26,23 @@ export default function List() {
                 refreshContactData={refreshContactData}
                 setIsEditing={setIsEditing}
                 isEditing={isEditing} />
-            {isAdding &&
-                <AddForm contactTypes={contactTypes} />
-            }
-            {!isEditing &&
-                <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />
-            }
-            {!isAdding &&
-                <EditButton isEditing={isEditing} setIsEditing={setIsEditing} />
+
+            {isAdmin &&
+                <>
+                    {isAdding &&
+                        <AddForm 
+                        contactTypes={contactTypes} 
+                        refreshContactData={refreshContactData}
+                        setIsAdding={setIsAdding}/>
+                    }
+                    {!isEditing &&
+                        <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />
+                    }
+                    {!isAdding &&
+                        <EditButton isEditing={isEditing} setIsEditing={setIsEditing} />
+                    }
+                    <DownloadButton contactInfo={contactInfo} contactName={contactName} />
+                </>
             }
         </div>
     );

@@ -2,14 +2,13 @@
 import { saveAs } from 'file-saver';
 import { ContactInfo, ContactTypes } from '@/types/types';
 
-export default function Button({ contactInfo, contactTypes, contactName }: { contactInfo: ContactInfo[], contactTypes: ContactTypes[], contactName: string }) {
+export default function DownloadButton({ contactInfo, contactName }: { contactInfo: ContactInfo[], contactName: string }) {
     const handleDownload = () => {
         try {
             let vCardData = `BEGIN:VCARD
-VERSION:3.0
-FN:${contactName}
-`;
-
+            VERSION:3.0
+            FN:${contactName}
+            `;
             contactInfo.forEach((info) => {
                 let type = '';
                 switch (info.type) {
@@ -50,7 +49,7 @@ FN:${contactName}
     };
 
     return (
-        <button className="bg-foreground p-4 text-xl" onClick={handleDownload}>
+        <button className="bg-[var(--container)] text-foreground p-4 text-xl rounded-sm" onClick={handleDownload}>
             Download Contact Card
         </button>
     );
