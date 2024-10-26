@@ -25,7 +25,7 @@ export default function Page() {
         <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
             <Button contactInfo={contactInfo} contactTypes={contactTypes} contactName={contactName} />
             <PageHeader contactName={contactName} />
-            <List contactInfo={contactInfo} contactTypes={contactTypes} />
+            <List />
         </div>
     );
 }
