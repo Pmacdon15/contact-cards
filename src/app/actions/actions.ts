@@ -1,4 +1,6 @@
-import {  ContactTypes,ContactInfo } from "@/types/types";
+'use server';
+import { ContactTypes, ContactInfo } from "@/types/types";
+//MARK:GetContactInfo
 export async function GetContactInfo() {
     const contactInfo = [
         { id: 1, type: 1, name: "Home", value: "123-456-7890" },
@@ -9,7 +11,7 @@ export async function GetContactInfo() {
 
     return contactInfo;
 }
-
+//MARK:GetContactTypes
 export async function GetContactTypes() {
     const contactTypes = [
         { id: 1, name: "Phone number" },
@@ -17,6 +19,11 @@ export async function GetContactTypes() {
         { id: 3, name: "Address" },
         { id: 4, name: "Web Site" },
     ] as ContactTypes[];
-
     return contactTypes;
+}
+
+//MARK: EditContactInfo
+export async function EditContactInfo(formData: FormData) {
+    console.log("Form submitted");
+    console.log(formData);
 }

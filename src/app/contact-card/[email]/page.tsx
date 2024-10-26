@@ -3,6 +3,7 @@ import Button from "@/components/ui/save-contact-card-button/Button";
 import List from "@/components/ui/contact-card-list/List";
 import PageHeader from "@/components/ui/header/page-header/PageHeader";
 
+
 const contactTypes = [
     { id: 1, name: "Phone number" },
     { id: 2, name: "Email" },

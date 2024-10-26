@@ -3,7 +3,7 @@ import { ContactInfo, ContactTypes } from "@/types/types";
 import ListItem from "@/components/ui/contact-list-item/ListItem";
 import { useState, useEffect } from "react";
 import EditButton from "../save-edit-button/EditButton";
-import { GetContactInfo, GetContactTypes } from "@/app/actions/actions";
+import { GetContactInfo, GetContactTypes, EditContactInfo } from "@/app/actions/actions";
 
 export default function List() {
     const { contactInfo, contactTypes, loading } = useContactData();
@@ -18,16 +18,20 @@ export default function List() {
     }
 
     return (
-        <div className="flex flex-col bg-foreground w-full h-5/6 text-2xl p-2 gap-2 rounded-sm">
+        <div className="flex flex-col items-center justify-center bg-foreground w-full h-5/6 text-2xl p-2 gap-2 rounded-sm">
+            <form action={async (formData: FormData) => {
+            await EditContactInfo(formData);
+            }} className="flex flex-col items-center gap-2">
             <ul className="flex flex-col gap-2">
                 {contactInfo.map((info, index) => {
-                    const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
-                    return (
-                        <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
-                    );
+                const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
+                return (
+                    <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
+                );
                 })}
             </ul>
             <EditButton isEditing={isEditing} handleEdit={handleEdit} />
+            </form>
         </div>
     );
 }
