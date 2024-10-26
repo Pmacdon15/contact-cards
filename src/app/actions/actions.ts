@@ -22,6 +22,12 @@ export async function GetContactTypes() {
     return contactTypes;
 }
 
+//MARK: AddContactInfo
+export async function AddContactInfo(formData: FormData) {
+    console.log("Form submitted");
+    console.log(formData);
+}
+
 //MARK: EditContactInfo
 export async function EditContactInfo(formData: FormData) {
     console.log("Form submitted");

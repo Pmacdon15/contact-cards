@@ -12,11 +12,6 @@ export default function List() {
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
 
-    const handleEdit = () => {
-        setIsEditing(!isEditing);
-    };
-
-
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -28,7 +23,7 @@ export default function List() {
                 contactTypes={contactTypes}
                 EditContactInfo={EditContactInfo}
                 refreshContactData={refreshContactData}
-                handleEdit={handleEdit}
+                setIsEditing={setIsEditing}
                 isEditing={isEditing} />
             {isAdding &&
                 <AddForm contactTypes={contactTypes} />
@@ -37,7 +32,7 @@ export default function List() {
                 <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />
             }
             {!isAdding &&
-                <EditButton isEditing={isEditing} handleEdit={handleEdit} />
+                <EditButton isEditing={isEditing} setIsEditing={setIsEditing} />
             }
         </div>
     );

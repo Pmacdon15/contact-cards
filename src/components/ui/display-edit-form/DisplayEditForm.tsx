@@ -1,10 +1,10 @@
 import { ContactInfo, ContactTypes } from "@/types/types";
 import ListItem from "@/components/ui/contact-list-item/ListItem";
-export default function DisplayEditForm({ contactInfo, contactTypes, EditContactInfo, refreshContactData, handleEdit, isEditing }:
-    { contactInfo: ContactInfo[], contactTypes: ContactTypes[], EditContactInfo: (formData: FormData) => Promise<void>, refreshContactData: () => void, handleEdit: () => void, isEditing: boolean }) {
+export default function DisplayEditForm({ contactInfo, contactTypes, EditContactInfo, refreshContactData, setIsEditing, isEditing }:
+    { contactInfo: ContactInfo[], contactTypes: ContactTypes[], EditContactInfo: (formData: FormData) => Promise<void>, refreshContactData: () => void, setIsEditing: (isEditing: boolean) => void, isEditing: boolean }) {
 
     const handleSubmit = async (formData: FormData) => {
-        handleEdit();
+        setIsEditing(false);
         await EditContactInfo(formData);
         refreshContactData();
     };
