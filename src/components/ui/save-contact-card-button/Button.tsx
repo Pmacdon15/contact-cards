@@ -43,7 +43,7 @@ FN:${contactName}
             console.log('vCardData:', vCardData);
 
             const blob = new Blob([vCardData], { type: 'text/vcard' });
-            saveAs(blob, 'contacts.vcf');
+            saveAs(blob, `${contactName}.vcf`);
         } catch (error) {
             console.error('Error generating or saving vCard:', error);
         }
