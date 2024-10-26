@@ -3,7 +3,7 @@ export default function ListItem({ info, index, typeName }: { info: ContactInfo,
     return (
         <li
             key={index}
-            className=" bg-[var(--container)] text-[var(--primary)] p-2 items-center hover:scale-105 "
+            className=" bg-[var(--container)] text-[var(--primary)] p-2 items-center hover:scale-105 rounded-md "
             style={{ height: "100%" }}
         >
             {typeName}:<br />

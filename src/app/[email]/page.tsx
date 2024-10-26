@@ -8,7 +8,6 @@ const contactTypes = [
     { id: 2, name: "Email" },
     { id: 3, name: "Address" },
     { id: 4, name: "Web Site" },
-    { id: 5, name: "Date" },
 ] as ContactType[];
 
 const contactInfo = [
@@ -16,7 +15,6 @@ const contactInfo = [
     { id: 2, type: 2, name: "Home", value: "pmacdonald15@gmail.com" },
     { id: 3, type: 3, name: "Work", value: "1234 Main St, Springfield, IL 62701" },
     { id: 4, type: 4, name: "Personal", value: "https://www.pmacdonald15.com" },
-    { id: 5, type: 5, name: "Birthday", value: "10/15/1990" },
 ] as ContactInfo[];
 
 const contactName = "Patrick MacDonald";
@@ -25,16 +23,16 @@ export default function Page() {
 
 
     return (
-        <div className="flex flex-col items-center h-screen text-background gap-2 p-2">
-            <h1 className="flex bg-foreground h-16 w-full justify-center items-center rounded-sm text-4xl">
+        <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
+            <h1 className="flex bg-foreground w-full justify-center items-center rounded-sm text-4xl p-4">
                 Contact Cards
             </h1>
 
             <Button contactInfo={contactInfo} contactTypes={contactTypes} contactName={contactName} />
-            <h1 className="bg-foreground w-full h-16 text-2xl p-2">
+            <h1 className="flex bg-foreground w-full justify-center items-center rounded-sm text-4xl p-4">
                 {contactName}
             </h1>
-            <div className="bg-foreground w-full h-5/6 text-2xl p-2">
+            <div className="bg-foreground w-full h-5/6 text-2xl p-2 rounded-sm">
                 <ul className="flex flex-col gap-2">
                     {contactInfo.map((info, index) => {
                         const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
