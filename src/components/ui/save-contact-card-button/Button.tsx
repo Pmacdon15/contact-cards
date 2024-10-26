@@ -1,8 +1,8 @@
 'use client';
 import { saveAs } from 'file-saver';
-import { ContactInfo, ContactType } from '@/types/types';
+import { ContactInfo, ContactTypes } from '@/types/types';
 
-export default function Button({ contactInfo, contactTypes, contactName }: { contactInfo: ContactInfo[], contactTypes: ContactType[], contactName: string }) {
+export default function Button({ contactInfo, contactTypes, contactName }: { contactInfo: ContactInfo[], contactTypes: ContactTypes[], contactName: string }) {
     const handleDownload = () => {
         try {
             let vCardData = `BEGIN:VCARD
