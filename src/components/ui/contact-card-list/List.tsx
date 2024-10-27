@@ -8,14 +8,14 @@ import DisplayEditForm from "../display-edit-form/DisplayEditForm";
 import AddButton from "@/components/ui/add-information-button/AddButton";
 import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
 
-export default function List({ contactName, isAdmin, email}: { contactName: string, isAdmin: boolean , email: string}) {
+export default function List({ contactName, isAdmin, user, email }: { contactName: string, isAdmin: boolean, user: any, email: string }) {
     const { contactInfo, infoLoading, refreshContactInfo } = useContactInfo(email);
     const { contactTypes, typesLoading } = useContactTypes();
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
 
     if (infoLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
-    if (!contactInfo || contactInfo.length === 0) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
+    if (!contactInfo || contactInfo.length === 0 && !user) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
     if (typesLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
 
     return (
@@ -39,7 +39,7 @@ export default function List({ contactName, isAdmin, email}: { contactName: stri
                     {!isEditing &&
                         <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />
                     }
-                    {!isAdding &&
+                    {!isAdding && contactInfo.length !== 0 &&
                         <EditButton isEditing={isEditing} setIsEditing={setIsEditing} />
                     }
                     <DownloadButton contactInfo={contactInfo} contactName={contactName} />
@@ -50,7 +50,7 @@ export default function List({ contactName, isAdmin, email}: { contactName: stri
 }
 
 // Custom hook to fetch and refresh contact info
-const useContactInfo = (email:string) => {
+const useContactInfo = (email: string) => {
     const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
     const [infoLoading, setInfoLoading] = useState(true);
 
