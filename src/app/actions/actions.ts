@@ -1,14 +1,16 @@
 'use server';
 import { ContactTypes, ContactInfo } from "@/types/types";
 //MARK:GetContactInfo
-export async function GetContactInfo() {
-    const contactInfo = [
-        { id: 1, type: 1, name: "Home", value: "123-456-7890" },
-        { id: 2, type: 2, name: "Home", value: "pmacdonald15@gmail.com" },
-        { id: 3, type: 3, name: "Work", value: "1234 Main St, Springfield, IL 62701" },
-        { id: 4, type: 4, name: "Personal", value: "https://www.pmacdonald15.com" },
-    ] as ContactInfo[];
-
+export async function GetContactInfo(email: string) {
+    let contactInfo: ContactInfo[] = [];
+    if (email === "pmacdonald15@gmail.com") {
+        contactInfo = [
+            { id: 1, type: 1, name: "Home", value: "123-456-7890" },
+            { id: 2, type: 2, name: "Home", value: "pmacdonald15@gmail.com" },
+            { id: 3, type: 3, name: "Work", value: "1234 Main St, Springfield, IL 62701" },
+            { id: 4, type: 4, name: "Personal", value: "https://www.pmacdonald15.com" },
+        ] as ContactInfo[];
+    }
     return contactInfo;
 }
 //MARK:GetContactTypes

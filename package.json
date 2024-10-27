@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@workos-inc/authkit-nextjs": "^0.13.0",
     "file-saver": "^2.0.5",
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",

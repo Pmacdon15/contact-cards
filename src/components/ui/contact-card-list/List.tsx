@@ -7,16 +7,15 @@ import AddForm from "../add-info-form/AddForm";
 import DisplayEditForm from "../display-edit-form/DisplayEditForm";
 import AddButton from "@/components/ui/add-information-button/AddButton";
 import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
-import { types } from "util";
 
-export default function List({ contactName, isAdmin }: { contactName: string, isAdmin: boolean }) {
-    const { contactInfo, infoLoading, refreshContactInfo } = useContactInfo();
+export default function List({ contactName, isAdmin, email}: { contactName: string, isAdmin: boolean , email: string}) {
+    const { contactInfo, infoLoading, refreshContactInfo } = useContactInfo(email);
     const { contactTypes, typesLoading } = useContactTypes();
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
 
     if (infoLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
-    if (!contactInfo) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
+    if (!contactInfo || contactInfo.length === 0) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
     if (typesLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
 
     return (
@@ -51,14 +50,14 @@ export default function List({ contactName, isAdmin }: { contactName: string, is
 }
 
 // Custom hook to fetch and refresh contact info
-const useContactInfo = () => {
+const useContactInfo = (email:string) => {
     const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
     const [infoLoading, setInfoLoading] = useState(true);
 
     const fetchContactInfo = async () => {
         setInfoLoading(true);
         try {
-            const [info] = await Promise.all([GetContactInfo()]);
+            const [info] = await Promise.all([GetContactInfo(email)]);
             setContactInfo(info);
             // setContactTypes(types);
         } catch (error) {
@@ -97,6 +96,6 @@ const useContactTypes = () => {
         fetchContactTypes();
     }, []);
 
-    // Return the data, loading state, and refresh function
+    // Return the data, loading state
     return { contactTypes, typesLoading };
 };
