@@ -10,7 +10,7 @@ import DownloadButton from "@/components/ui/save-contact-card-button/DownloadBut
 import { types } from "util";
 
 export default function List({ contactName, isAdmin }: { contactName: string, isAdmin: boolean }) {
-    const { contactInfo, infoLoading, refreshContactData } = useContactInfo();
+    const { contactInfo, infoLoading, refreshContactInfo } = useContactInfo();
     const { contactTypes, typesLoading } = useContactTypes();
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
@@ -25,7 +25,7 @@ export default function List({ contactName, isAdmin }: { contactName: string, is
                 contactInfo={contactInfo}
                 contactTypes={contactTypes}
                 EditContactInfo={EditContactInfo}
-                refreshContactData={refreshContactData}
+                refreshContactData={refreshContactInfo}
                 setIsEditing={setIsEditing}
                 isEditing={isEditing} />
 
@@ -34,7 +34,7 @@ export default function List({ contactName, isAdmin }: { contactName: string, is
                     {isAdding &&
                         <AddForm
                             contactTypes={contactTypes}
-                            refreshContactData={refreshContactData}
+                            refreshContactData={refreshContactInfo}
                             setIsAdding={setIsAdding} />
                     }
                     {!isEditing &&
@@ -73,7 +73,7 @@ const useContactInfo = () => {
     }, []);
 
     // Return the data, loading state, and refresh function
-    return { contactInfo, infoLoading, refreshContactData: fetchContactInfo };
+    return { contactInfo, infoLoading, refreshContactInfo: fetchContactInfo };
 };
 
 // Custom hook to fetch and refresh contact Types
