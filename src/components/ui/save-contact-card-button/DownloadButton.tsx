@@ -49,7 +49,7 @@ export default function DownloadButton({ contactInfo, contactName }: { contactIn
     };
 
     return (
-        <button className="bg-[var(--container)] text-[var(--primary)] p-4 text-xl" onClick={handleDownload}>
+        <button className="bg-[var(--container)] text-[var(--primary)] shadow-lg p-4 text-xl" onClick={handleDownload}>
             Download Contact Card
         </button>
     );
