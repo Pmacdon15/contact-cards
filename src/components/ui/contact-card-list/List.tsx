@@ -18,7 +18,7 @@ export default function List({ contactName, isAdmin }: { contactName: string, is
     }
 
     return (
-        <div className="flex flex-col items-center justify-center bg-foreground w-full h-5/6  p-2 gap-2 rounded-sm">
+        <div className="flex flex-col items-center justify-center border shadow-xl bg-foreground w-full h-5/6  p-2 gap-2 rounded-sm">
             <DisplayEditForm
                 contactInfo={contactInfo}
                 contactTypes={contactTypes}

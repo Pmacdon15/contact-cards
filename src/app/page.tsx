@@ -1,6 +1,5 @@
 export default function Page() {
 
-
   return (
       <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
           <h1 className="flex bg-foreground w-full justify-center items-center rounded-sm text-4xl p-4">
