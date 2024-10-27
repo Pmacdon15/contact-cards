@@ -15,9 +15,9 @@ export default function List({ contactName, isAdmin }: { contactName: string, is
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
 
-    if (infoLoading) return <div>Loading...</div>;
-    if (!contactInfo) return <div>No contact info found</div>;
-    if (typesLoading) return <div>Loading...</div>;
+    if (infoLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
+    if (!contactInfo) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
+    if (typesLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
 
     return (
         <div className="flex flex-col items-center justify-center border shadow-xl bg-foreground w-full h-5/6  p-2 gap-2 rounded-sm">
