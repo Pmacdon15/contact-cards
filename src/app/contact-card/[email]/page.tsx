@@ -3,11 +3,14 @@ import PageHeader from "@/components/ui/header/page-header/PageHeader";
 import SignInButtons from "@/components/ui/sign-in-sign-up-buttons/SignInButtons";
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import SignOutButton from "@/components/ui/sign-out-button/SignOutButton";
+import { User, Props} from '@/types/types';
 
-export default async function Page({ params }: { params: { email: string } }) {
-    const { email } = await params;
+
+export default async function Page(props: Props) {
+    const { email } = await props.params;
     const decodedEmail = decodeURIComponent(email);
-    const { user } = await withAuth();
+    const auth = await withAuth();
+    const user = auth.user as User ;
     let isAdmin = false;
     if (user) {
         isAdmin = user.email === decodedEmail;

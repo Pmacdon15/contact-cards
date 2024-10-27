@@ -1,14 +1,13 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation';
-
+import { User } from '@/types/types';
 async function signOut() {
     const cookieStore = await cookies();
     cookieStore.delete('wos-session');
     redirect('/');
 }
 
-
-export default async function SignOutButton({ user }:{ user: any }) {
+export default async function SignOutButton({ user }: { user: User }) {
     return (
         <form
             action={async () => {

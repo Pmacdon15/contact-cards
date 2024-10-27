@@ -1,6 +1,6 @@
 'use client';
 import { saveAs } from 'file-saver';
-import { ContactInfo, ContactTypes } from '@/types/types';
+import { ContactInfo} from '@/types/types';
 
 export default function DownloadButton({ contactInfo, contactName }: { contactInfo: ContactInfo[], contactName: string }) {
     const handleDownload = () => {

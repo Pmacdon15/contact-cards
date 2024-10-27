@@ -1,6 +1,6 @@
 'use client';
-import { ContactInfo, ContactTypes } from "@/types/types";
-import { useState, useEffect } from "react";
+import { ContactInfo, ContactTypes, User } from "@/types/types";
+import { useState, useEffect, useCallback } from "react";
 import EditButton from "../save-edit-button/EditButton";
 import { GetContactInfo, GetContactTypes, EditContactInfo } from "@/app/actions/actions";
 import AddForm from "../add-info-form/AddForm";
@@ -8,7 +8,7 @@ import DisplayEditForm from "../display-edit-form/DisplayEditForm";
 import AddButton from "@/components/ui/add-information-button/AddButton";
 import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
 
-export default function List({ contactName, isAdmin, user, email }: { contactName: string, isAdmin: boolean, user: any, email: string }) {
+export default function List({ contactName, isAdmin, user, email }: { contactName: string, isAdmin: boolean, user: User, email: string }) {
     const { contactInfo, infoLoading, refreshContactInfo } = useContactInfo(email);
     const { contactTypes, typesLoading } = useContactTypes();
     const [isEditing, setIsEditing] = useState(false);
@@ -54,22 +54,21 @@ const useContactInfo = (email: string) => {
     const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
     const [infoLoading, setInfoLoading] = useState(true);
 
-    const fetchContactInfo = async () => {
+    const fetchContactInfo = useCallback(async () => {
         setInfoLoading(true);
         try {
             const [info] = await Promise.all([GetContactInfo(email)]);
             setContactInfo(info);
-            // setContactTypes(types);
         } catch (error) {
             console.error(error);
         } finally {
             setInfoLoading(false);
         }
-    };
+    }, [email]);
 
     useEffect(() => {
         fetchContactInfo();
-    }, []);
+    }, [fetchContactInfo]);
 
     // Return the data, loading state, and refresh function
     return { contactInfo, infoLoading, refreshContactInfo: fetchContactInfo };

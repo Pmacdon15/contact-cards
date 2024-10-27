@@ -1,5 +1,5 @@
 import { ContactInfo } from "@/types/types";
-export default function ListItem({ info, index, typeName, isEditing }: { info: ContactInfo, index: number, typeName: string, isEditing: Boolean }) {
+export default function ListItem({ info, index, typeName, isEditing }: { info: ContactInfo, index: number, typeName: string, isEditing: boolean }) {
     return (
         !isEditing ? (
             <li
