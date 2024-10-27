@@ -1,5 +1,17 @@
 'use server';
 import { ContactTypes, ContactInfo } from "@/types/types";
+//MARK: Get background image url
+export async function GetBackgroundImageUrl() {
+    // return "/backGround.jpg";
+    return "/bannerPlaceHolder.png"
+}
+
+//MARK: GET profile Image
+export async function GetProfileImage(email: string) {
+    // return "https://workoscdn.com/images/v1/unW4EOIGXF7UTy6Lgttsbu7d--On14s1rVB7g-1mHt4";
+    return "/profilePlaceHolder.png"
+}
+
 //MARK:GetContactInfo
 export async function GetContactInfo(email: string) {
     let contactInfo: ContactInfo[] = [];

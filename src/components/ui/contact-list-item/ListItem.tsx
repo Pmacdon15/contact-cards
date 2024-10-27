@@ -4,7 +4,7 @@ export default function ListItem({ info, index, typeName, isEditing }: { info: C
         !isEditing ? (
             <li
                 key={index}
-                className=" bg-[var(--container)]  text-[var(--primary)] p-2 items-center hover:scale-105 rounded-md " >
+                className=" bg-[var(--container)]  text-[var(--primary)] shadow-lg p-2 items-center hover:scale-105 rounded-md " >
                 {typeName}: <br />
                 {info.type === 1 && (
                     <a
