@@ -75,10 +75,10 @@ const List = ({ email, user, isAdmin, contactName }: ListProps) => {
                     }
                     {!isAdding && contactInfo.length !== 0 &&
                         <EditButton isEditing={isEditing} setIsEditing={setIsEditing} />
-                    }
-                    <DownloadButton contactInfo={contactInfo} contactName={contactName} />
-                </>
+                    }                    
+                </>                
             }
+            <DownloadButton contactInfo={contactInfo} contactName={contactName} />
         </div>
     );
 }

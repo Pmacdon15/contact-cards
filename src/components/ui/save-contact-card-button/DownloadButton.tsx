@@ -25,10 +25,7 @@ export default function DownloadButton({ contactInfo, contactName }: { contactIn
                         break;
                     case 4:
                         type = 'URL';
-                        break;
-                    // case 5:
-                    //     type = 'DATE';
-                    //     break;
+                        break;                   
                     default:
                         type = 'NOTE';
                 }
