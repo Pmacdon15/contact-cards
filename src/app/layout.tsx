@@ -1,8 +1,10 @@
+// components/RootLayout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/ui/header/Header";
 import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
+import { ReactQueryProvider } from '@/components/react-query-provider';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +34,9 @@ export default function RootLayout({
       >
         <Header />
         <AuthKitProvider>
-          {children}
+          <ReactQueryProvider>
+            {children}
+          </ReactQueryProvider>
         </AuthKitProvider>
       </body>
     </html>

@@ -27,7 +27,6 @@ export default async function Page(props: Props) {
     return (
         <>
             {backGroundUrl && profileImageUrl && <ProfileImage imageUrl={profileImageUrl} backgroundImageUrl={backGroundUrl} />}
-
             <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
                 <PageHeader contactName={contactName} />
                 <List contactName={contactName} isAdmin={isAdmin} user={user} email={decodedEmail} />

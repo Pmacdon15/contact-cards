@@ -1,6 +1,7 @@
 'use client';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ContactInfo, ContactTypes, User } from "@/types/types";
-import { useState, useEffect, useCallback } from "react";
+import { useState} from "react";
 import EditButton from "../save-edit-button/EditButton";
 import { GetContactInfo, GetContactTypes, EditContactInfo } from "@/app/actions/actions";
 import AddForm from "../add-info-form/AddForm";
@@ -8,14 +9,47 @@ import DisplayEditForm from "../display-edit-form/DisplayEditForm";
 import AddButton from "@/components/ui/add-information-button/AddButton";
 import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
 
-export default function List({ contactName, isAdmin, user, email }: { contactName: string, isAdmin: boolean, user: User, email: string }) {
-    const { contactInfo, infoLoading, refreshContactInfo } = useContactInfo(email);
-    const { contactTypes, typesLoading } = useContactTypes();
+// Fetch contact info
+const useContactInfo = (email: string) => {
+  return useQuery<ContactInfo[]>({
+    queryKey: ['contactInfo', email], // key
+    queryFn: async () => {
+      const [info] = await Promise.all([GetContactInfo(email)]);
+      return info;
+    },
+    enabled: !!email, // Only fetch when email is present
+    retry: 3, // Retry 3 times if failed
+  });
+};
+
+// Fetch contact types
+const useContactTypes = () => {
+    return useQuery<ContactTypes[]>({   
+      queryKey: ['contactTypes'], // key
+      queryFn: async () => {
+        const [types] = await Promise.all([GetContactTypes()]);
+        return types;
+      },
+      retry: 3, // Retry 3 times if failed
+    });
+  };
+  
+interface ListProps {
+  email: string;
+  user: User;
+  isAdmin: boolean;
+  contactName: string;
+}
+
+const List = ({ email, user, isAdmin, contactName }: ListProps) => {
+    const { data: contactInfo, isLoading: infoLoading, refetch: refreshContactInfo } = useContactInfo(email);
+    const { data: contactTypes, isLoading: typesLoading } = useContactTypes();
+
     const [isEditing, setIsEditing] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
 
     if (infoLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
-    if (!contactInfo || contactInfo.length === 0 && !user) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
+    if (!contactInfo || contactInfo.length === 0 && !user || !contactTypes) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">No contact info found</div>;
     if (typesLoading) return <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-4xl p-4">Loading...</div>;
 
     return (
@@ -49,52 +83,4 @@ export default function List({ contactName, isAdmin, user, email }: { contactNam
     );
 }
 
-// Custom hook to fetch and refresh contact info
-const useContactInfo = (email: string) => {
-    const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
-    const [infoLoading, setInfoLoading] = useState(true);
-
-    const fetchContactInfo = useCallback(async () => {
-        setInfoLoading(true);
-        try {
-            const [info] = await Promise.all([GetContactInfo(email)]);
-            setContactInfo(info);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setInfoLoading(false);
-        }
-    }, [email]);
-
-    useEffect(() => {
-        fetchContactInfo();
-    }, [fetchContactInfo]);
-
-    // Return the data, loading state, and refresh function
-    return { contactInfo, infoLoading, refreshContactInfo: fetchContactInfo };
-};
-
-// Custom hook to fetch and refresh contact Types
-const useContactTypes = () => {
-    const [contactTypes, setContactTypes] = useState<ContactTypes[]>([]);
-    const [typesLoading, setTypesLoading] = useState(true);
-
-    const fetchContactTypes = async () => {
-        setTypesLoading(true);
-        try {
-            const [types] = await Promise.all([GetContactTypes()]);
-            setContactTypes(types);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setTypesLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchContactTypes();
-    }, []);
-
-    // Return the data, loading state
-    return { contactTypes, typesLoading };
-};
+export default List;
