@@ -71,7 +71,8 @@ const List = ({ email, isAdmin, contactName }: ListProps) => {
           {isAdding &&
             <AddForm
               contactTypes={contactTypes}              
-              setIsAdding={setIsAdding} />
+              setIsAdding={setIsAdding} 
+              email={email}/>
           }
           {!isEditing &&
             <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />

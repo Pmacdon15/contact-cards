@@ -1,14 +1,26 @@
 import { ContactTypes } from "@/types/types";
 import { AddContactInfo } from "@/actions/actions";
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
+export default function AddForm({ contactTypes, setIsAdding, email }: { contactTypes: ContactTypes[], setIsAdding: (isAdding: boolean) => void, email: string }) {
+  const queryClient = useQueryClient()
 
-export default function AddForm({ contactTypes, setIsAdding }: { contactTypes: ContactTypes[], setIsAdding: (isAdding: boolean) => void }) {
+  const mutationAddInfo = useMutation({
+    mutationFn: AddContactInfo,
+    onError: (error) => {
+      console.error(error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contactInfo', email] })
+    },
+  });
+
   return (
     <form
       className="flex flex-col w-full items-center gap-2"
       action={async (formData) => {
         setIsAdding(false);
-        await AddContactInfo(formData);
+        mutationAddInfo.mutate(formData);
       }}>
       <select
         name="type"
