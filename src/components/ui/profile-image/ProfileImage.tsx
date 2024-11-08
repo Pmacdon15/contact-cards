@@ -1,5 +1,5 @@
 import Image from 'next/image';
-export default function ProfileImage({ imageUrl, backgroundImageUrl }: { imageUrl: string, backgroundImageUrl: string }) {
+export default function ProfileImage({ imageUrl }: { imageUrl: string }) {
     console.log(imageUrl);
     return (
         <Image

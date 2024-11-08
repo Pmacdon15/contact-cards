@@ -24,7 +24,7 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['contactInfo', email] })
         },
-    });   
+    });
 
     return (
         <form
@@ -36,13 +36,23 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
             <ul className="flex flex-col gap-2">
                 {contactInfo.map((info, index) => {
                     const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
+                    if (info.type === 5) {
+                        return null;
+                    }
                     return (
                         <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
                     );
                 })}
             </ul>
             {mutationEditInfo.isSuccess && <div>Info edited!</div>}
-            {isEditing && <button type="submit" className="p-2 text-lg items-center w-3/6 m-2 rounded-md text-black bg-green-600">Save</button>}
+            {isEditing &&
+                <button
+                    disabled={mutationEditInfo.isPending}
+                    type="submit"
+                    className="p-2 text-lg items-center w-3/6 m-2 rounded-md text-black bg-green-600"
+                >
+                    {mutationEditInfo.isPending ? "Saving ..." : "Save"}
+                </button>}
         </form>
     );
 };

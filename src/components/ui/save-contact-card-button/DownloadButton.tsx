@@ -1,53 +1,52 @@
-'use client';
 import { saveAs } from 'file-saver';
-import { ContactInfo} from '@/types/types';
+import { ContactInfo } from '@/types/types';
+
+const typeMapping: { [key: number]: string } = {
+  1: 'TEL',
+  2: 'EMAIL',
+  3: 'ADR',
+  4: 'URL',
+};
 
 export default function DownloadButton({ contactInfo, contactName }: { contactInfo: ContactInfo[], contactName: string }) {
-    const handleDownload = () => {
-        try {
-            let vCardData = `BEGIN:VCARD
-            VERSION:3.0
-            FN:${contactName}
-            `;
-            contactInfo.forEach((info) => {
-                let type = '';
-                switch (info.type) {
-                    case 1:
-                        type = 'TEL';
-                        break;
-                    case 2:
-                        type = 'EMAIL';
-                        break;
-                    case 3:
-                        const addressParts = info.value.split(',').map(part => part.trim());
-                        const formattedAddress = addressParts.join(';');
-                        vCardData += `ADR;TYPE=${info.name}:${formattedAddress}\n`;
-                        break;
-                    case 4:
-                        type = 'URL';
-                        break;                   
-                    default:
-                        type = 'NOTE';
-                }
+  const handleDownload = async () => {
+    try {
+      const vCardData = generateVCard(contactName, contactInfo);
+      const blob = new Blob([vCardData], { type: 'text/vcard' });
+      saveAs(blob, `${contactName}.vcf`);
+    } catch (error) {
+      console.error('Error generating or saving vCard:', error);
+      // Provide user feedback, e.g., toast notification or alert
+    }
+  };
 
-                vCardData += `${type};TYPE=${info.name}:${info.value}
-`;
-            });
+  return (
+    <button
+      className="bg-[var(--container)] text-[var(--primary)] shadow-lg p-4 text-xl"
+      onClick={handleDownload}
+    >
+      Download Contact Card
+    </button>
+  );
+}
 
-            vCardData += `END:VCARD`;
+const generateVCard = (contactName: string, contactInfo: ContactInfo[]) => {
+  let vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${contactName}\n`;
 
-            console.log('vCardData:', vCardData);
+  contactInfo.forEach((info) => {
+    const type = typeMapping[info.type];
+    if (!type) return;
 
-            const blob = new Blob([vCardData], { type: 'text/vcard' });
-            saveAs(blob, `${contactName}.vcf`);
-        } catch (error) {
-            console.error('Error generating or saving vCard:', error);
-        }
-    };
+    switch (info.type) {
+      case 3:
+        const addressParts = info.value.split(',').map((part) => part.trim());
+        const formattedAddress = addressParts.join(';');
+        vCardData += `ADR;TYPE=${info.name}:${formattedAddress}\n`;
+        break;
+      default:
+        vCardData += `${type};TYPE=${info.name}:${info.value}\n`;
+    }
+  });
 
-    return (
-        <button className="bg-[var(--container)] text-[var(--primary)] shadow-lg p-4 text-xl" onClick={handleDownload}>
-            Download Contact Card
-        </button>
-    );
+  return `${vCardData}END:VCARD`;
 };
