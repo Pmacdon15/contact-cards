@@ -8,10 +8,25 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        'up-normal': 'up 2s',
+      },
+      keyframes: {
+        up: {
+          '0%': { height: '100vh' },
+          '50%': { height: '100vh' },
+          '100%': { height: '15vh' },
+        }
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      opacity: {
+        '15': '0.15',
+        '35': '0.35',
+        '65': '0.65',
+       },
     },
   },
   plugins: [],

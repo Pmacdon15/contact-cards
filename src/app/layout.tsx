@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/ui/header/Header";
-import { AuthKitProvider } from '@workos-inc/authkit-nextjs';
+import { AuthKitProvider } from "@workos-inc/authkit-nextjs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,10 +30,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <AuthKitProvider>
-          {children}
-        </AuthKitProvider>
+        <div className="animate-up-normal max-w-[430px]">
+          <Header />
+        </div>
+        <AuthKitProvider>{children}</AuthKitProvider>
       </body>
     </html>
   );

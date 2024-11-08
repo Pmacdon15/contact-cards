@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --background: #5f90b8e1;
-  --foreground: #ebf0f5;
+  --background: rgba(172, 200, 229, 0.9);
+  --foreground: #112A46;
   --primary: #ffffff;
   --container: #5a97a1;
   --border: #ffffff;
+  --alert:#B33F62;
+  --foregroundalert:#A98743;
+  --intermediate1:#7893B0;
+  --intermediate2: #455F7B;
 }
 
 /* 
@@ -23,4 +27,14 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   border: var(--border);
+
+
+
+  
+    height: 100vh;
+    background-image: url(../../public/background.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    max-width: 430px;
+  
 }
