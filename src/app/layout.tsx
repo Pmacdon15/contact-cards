@@ -32,7 +32,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
+        <div className="animate-up-normal max-w-[430px]">
+          <Header />
+        </div>
         <AuthKitProvider>
           <ReactQueryProvider>
             {children}
