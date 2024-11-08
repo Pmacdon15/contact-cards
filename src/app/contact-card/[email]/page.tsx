@@ -4,8 +4,6 @@ import SignInButtons from "@/components/ui/sign-in-sign-up-buttons/SignInButtons
 import { withAuth } from '@workos-inc/authkit-nextjs';
 import SignOutButton from "@/components/ui/sign-out-button/SignOutButton";
 import { User, Props } from '@/types/types';
-import ProfileImage from "@/components/ui/profile-image/ProfileImage";
-
 
 
 export default async function Page(props: Props) {
