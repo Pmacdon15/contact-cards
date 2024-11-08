@@ -5,13 +5,13 @@ export type ContactTypes = {
 
 export type ContactInfo = {
     id: number;
+    user_email: string;
     type: number;
     name: string;
     value: string;
 };
 
-export type User = {
-    object: 'user';
+export type User = {   
     id: string;
     email: string;
     emailVerified: boolean;

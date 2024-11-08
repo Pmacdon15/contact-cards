@@ -26,9 +26,11 @@ export default function AddForm({ contactTypes, setIsAdding, email }: { contactT
         name="type"
         className="p-2 items-center w-3/6 m-2 rounded-md text-black bg-white">
         {contactTypes.map((type) => (
-          <option key={type.id} value={type.id}>
-            {type.name}
-          </option>
+            type.id !== 5 && (
+            <option key={type.id} value={type.id}>
+              {type.name}
+            </option>
+            )
         ))}
       </select>
       <input

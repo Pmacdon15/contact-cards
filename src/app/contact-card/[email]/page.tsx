@@ -5,28 +5,23 @@ import { withAuth } from '@workos-inc/authkit-nextjs';
 import SignOutButton from "@/components/ui/sign-out-button/SignOutButton";
 import { User, Props } from '@/types/types';
 import ProfileImage from "@/components/ui/profile-image/ProfileImage";
-import { GetBackgroundImageUrl, GetProfileImage } from "@/actions/actions";
+
 
 
 export default async function Page(props: Props) {
     const { email } = await props.params;
     const decodedEmail = decodeURIComponent(email);
     const auth = await withAuth();
-    // const profileImageUrl = auth.user?.profilePictureUrl;
-    const profileImageUrl = await GetProfileImage(decodedEmail);
-    const backGroundUrl = await GetBackgroundImageUrl();
+
     const user = auth.user as User;
     let isAdmin = false;
-    if (user) {
-        isAdmin = user.email === decodedEmail;
-    }
+    if (user) isAdmin = user.email === decodedEmail;
 
     const contactNameEmail = decodeURIComponent(email);
     const contactName = contactNameEmail.split("@")[0];
 
     return (
         <>
-            {backGroundUrl && profileImageUrl && <ProfileImage imageUrl={profileImageUrl} backgroundImageUrl={backGroundUrl} />}
             <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
                 <PageHeader contactName={contactName} />
                 <List contactName={contactName} isAdmin={isAdmin} email={decodedEmail} />

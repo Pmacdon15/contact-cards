@@ -24,7 +24,7 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['contactInfo', email] })
         },
-    });   
+    });
 
     return (
         <form
@@ -36,6 +36,9 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
             <ul className="flex flex-col gap-2">
                 {contactInfo.map((info, index) => {
                     const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
+                    if (info.type === 5) {
+                        return null;
+                    }
                     return (
                         <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
                     );
