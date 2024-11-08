@@ -45,7 +45,14 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                 })}
             </ul>
             {mutationEditInfo.isSuccess && <div>Info edited!</div>}
-            {isEditing && <button type="submit" className="p-2 text-lg items-center w-3/6 m-2 rounded-md text-black bg-green-600">Save</button>}
+            {isEditing &&
+                <button
+                    disabled={mutationEditInfo.isPending}
+                    type="submit"
+                    className="p-2 text-lg items-center w-3/6 m-2 rounded-md text-black bg-green-600"
+                >
+                    {mutationEditInfo.isPending ? "Saving ..." : "Save"}
+                </button>}
         </form>
     );
 };
