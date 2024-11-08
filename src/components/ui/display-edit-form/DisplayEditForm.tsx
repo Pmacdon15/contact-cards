@@ -1,20 +1,37 @@
 import { ContactInfo, ContactTypes } from "@/types/types";
 import ListItem from "@/components/ui/contact-list-item/ListItem";
-export default function DisplayEditForm({ contactInfo, contactTypes, EditContactInfo, refreshContactData, setIsEditing, isEditing }:
-    { contactInfo: ContactInfo[], contactTypes: ContactTypes[], EditContactInfo: (formData: FormData) => Promise<void>, refreshContactData: () => void, setIsEditing: (isEditing: boolean) => void, isEditing: boolean }) {
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { EditContactInfo } from "@/actions/actions";
 
-    const handleSubmit = async (formData: FormData) => {
-        setIsEditing(false);
-        await EditContactInfo(formData);
-        refreshContactData();
-    };
+
+
+export default function DisplayEditForm({ email, contactInfo, contactTypes, setIsEditing, isEditing }:
+    {
+        email: string,
+        contactInfo: ContactInfo[],
+        contactTypes: ContactTypes[],
+        setIsEditing: (isEditing: boolean) => void,
+        isEditing: boolean
+    }) {
+
+    const queryClient = useQueryClient()
+
+    const mutationEditInfo = useMutation({
+        mutationFn: EditContactInfo,
+        onError: (error) => {
+            console.error(error);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['contactInfo', email] })
+        },
+    });   
 
     return (
         <form
             className="flex flex-col items-center gap-2 text-2xl"
             action={async (formData: FormData) => {
-                console.log(formData);
-                handleSubmit(formData);;
+                setIsEditing(false);
+                mutationEditInfo.mutate(formData);
             }} >
             <ul className="flex flex-col gap-2">
                 {contactInfo.map((info, index) => {
@@ -24,6 +41,7 @@ export default function DisplayEditForm({ contactInfo, contactTypes, EditContact
                     );
                 })}
             </ul>
+            {mutationEditInfo.isSuccess && <div>Info edited!</div>}
             {isEditing && <button type="submit" className="p-2 text-lg items-center w-3/6 m-2 rounded-md text-black bg-green-600">Save</button>}
         </form>
     );
