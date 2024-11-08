@@ -5,7 +5,7 @@ import { withAuth } from '@workos-inc/authkit-nextjs';
 import SignOutButton from "@/components/ui/sign-out-button/SignOutButton";
 import { User, Props } from '@/types/types';
 import ProfileImage from "@/components/ui/profile-image/ProfileImage";
-import { GetBackgroundImageUrl, GetProfileImage } from "@/app/actions/actions";
+import { GetBackgroundImageUrl, GetProfileImage } from "@/actions/actions";
 
 
 export default async function Page(props: Props) {
@@ -27,10 +27,9 @@ export default async function Page(props: Props) {
     return (
         <>
             {backGroundUrl && profileImageUrl && <ProfileImage imageUrl={profileImageUrl} backgroundImageUrl={backGroundUrl} />}
-
             <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
                 <PageHeader contactName={contactName} />
-                <List contactName={contactName} isAdmin={isAdmin} user={user} email={decodedEmail} />
+                <List contactName={contactName} isAdmin={isAdmin} email={decodedEmail} />
             </div>
             {!user ?
                 <SignInButtons />
