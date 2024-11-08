@@ -29,7 +29,7 @@ VALUES
     INSERT INTO CCContactInfo
         (user_email, type, name, value)
     VALUES
-        ('pmacdonald15@gmail.com', 1, 'Home', '1-403-975-5053'),
+        ('pmacdonald15@gmail.com', 1, 'Home', '403-975-5053'),
         ('pmacdonald15@gmail.com', 2, 'Home', 'pmacdonald15@gmail.com'),
-        ('pmacdonald15@gmail.com', 4, 'Personal', 'https://www.patmac.org'),
-        ('pmacdonald15@gmail.com', 5, 'Personal', 'https://www.pmacdonald15.com');
+        ('pmacdonald15@gmail.com', 4, 'Personal', 'https://www.patmac.org');
+        -- ('pmacdonald15@gmail.com', 5, 'Personal', 'This will Be a url');
