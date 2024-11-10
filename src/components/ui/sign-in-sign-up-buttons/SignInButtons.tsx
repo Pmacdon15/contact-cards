@@ -8,7 +8,7 @@ export default async function SignInButtons() {
     const signInUrl = await getSignInUrl();
     const signUpUrl = await getSignUpUrl();
     return (
-        <div className="flex p-2 gap-2">
+        <div className="flex p-2 gap-2 text-[var(--primary)]">
             <Link href={signInUrl}>
                 Sign In
             </Link>

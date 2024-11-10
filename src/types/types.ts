@@ -22,6 +22,14 @@ export type User = {
     updatedAt: string;
 };
 
+export type UserInfo ={
+    id: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image_url: string;
+}
+
 export type Props = {
     params: Promise<{ email: string }>;
 };
