@@ -4,9 +4,10 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 export default function AddForm({ contactTypes, setIsAdding, email }: { contactTypes: ContactTypes[], setIsAdding: (isAdding: boolean) => void, email: string }) {
   const queryClient = useQueryClient()
-
+  const boundWithData = AddContactInfo.bind(null, email);
+  
   const mutationAddInfo = useMutation({
-    mutationFn: AddContactInfo,
+    mutationFn: boundWithData,
     onError: (error) => {
       console.error(error);
     },

@@ -12,7 +12,7 @@ CREATE TABLE
         id SERIAL PRIMARY KEY,
         user_email VARCHAR(255) NOT NULL,
         type INTEGER REFERENCES CCContactTypes (id),
-        name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL DEFAULT 'Home',
         value VARCHAR(255) NOT NULL
     );
 

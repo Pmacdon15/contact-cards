@@ -16,7 +16,7 @@ export default async function SignOutButton({ user }: { user: User }) {
             }}
         >
             <p>Welcome back{user.firstName && `, ${user.firstName}`}</p>
-            <button className="text-[var(--primary)]" type="submit">Sign out</button>
+            <button className="text-[var(--foreground)]" type="submit">Sign out</button>
         </form>
     );
 };

@@ -58,21 +58,24 @@ const List = ({ email, isAdmin, contactName }: ListProps) => {
   if (!contactInfo || contactInfo.length === 0) return <Error errorType="no contact info found" />;
   if (!contactTypes || contactTypes.length === 0) return <Error errorType="no contact types" />;
 
+ 
+
   return (
     <div className="flex flex-col items-center justify-center border shadow-xl bg-foreground w-full h-5/6 p-2 gap-2 rounded-sm">
       <DisplayEditForm
         email={email}
         contactInfo={contactInfo}
-        contactTypes={contactTypes}        
+        contactTypes={contactTypes}
         setIsEditing={setIsEditing}
-        isEditing={isEditing} />
+        isEditing={isEditing}
+      />
       {isAdmin &&
         <>
           {isAdding &&
             <AddForm
-              contactTypes={contactTypes}              
-              setIsAdding={setIsAdding} 
-              email={email}/>
+              contactTypes={contactTypes}
+              setIsAdding={setIsAdding}
+              email={email} />
           }
           {!isEditing &&
             <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />

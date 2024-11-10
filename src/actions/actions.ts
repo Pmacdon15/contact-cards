@@ -18,33 +18,54 @@ export async function GetContactTypes() {
 }
 
 //MARK: AddContactInfo
-export async function AddContactInfo(formData: FormData) {
+export async function AddContactInfo(email: string, formData: FormData) {
     console.log("Form submitted");
     console.log(formData);
+    const auth = await withAuth({ ensureSignedIn: true });
+    const user = auth.user as User;
+    if (user.email != email) return false;
+
+    const type = Number(formData.get('type'));
+    let value = formData.get('value') as string;
+
+    if (type === 4 && value)
+        if (!value.startsWith('https://')) {
+            value = 'https://' + value;
+        }
+
+    const results = await sql`Insert Into CCContactInfo (user_email, type, value) Values (${email}, ${type}, ${value})`;
+    if (results.rows.length > 0) return true;
+    else return false;
 }
 
 //MARK: EditContactInfo
 export async function EditContactInfo(formData: FormData) {
-    console.log("Form submitted");
-    console.log(formData);
-    // for (const [key, value] of formData.entries()) {
-    //     const contactIndex = contactInfo.findIndex((contact) => contact.id === Number(key));
-    //     if (contactIndex !== -1) {
-    //         contactInfo[contactIndex].value = String(value);
-    //     }
-    // }
+    console.log("Form Data", formData);
 
+}
+
+//MARK: DeleteContactInfo
+export async function DeleteContactInfo({ email, id }: { email: string, id: number }) {
+    console.log("Delete Contact Info", email, id);
+    const auth = await withAuth({ ensureSignedIn: true });
+    const user = auth.user as User;
+    if (user.email != email) return false;
+    console.log("Delete Contact Info", email, id);
+    const results = await sql`Delete From CCContactInfo Where id = ${id}`;
+    if (results.rows.length > 0) return true;
+    else return false;
 }
 
 //MARK: Create User if not exists
 export async function CreateUserIfNotExists(email: string,) {
     const auth = await withAuth({ ensureSignedIn: true });
     const user = auth.user as User;
-    if (user.email != email) return;
+    if (user.email != email) return false;
     const userExists = await sql`Select * From CCUsers Where email = ${email}`;
-    if (userExists.rows.length === 0) {
+    if (userExists.rows.length > 0) {
         const results = await sql`Insert Into CCUsers (email, first_name, last_name, profile_image_url) Values (${email}, ${user.firstName}, ${user.lastName}, ${user.profilePictureUrl})`;
-        console.log("User created");
+        if (results.rows.length > 0) return true;
+        else return false;
     }
 }
 

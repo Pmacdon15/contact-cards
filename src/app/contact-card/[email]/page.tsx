@@ -12,8 +12,8 @@ export default async function Page(props: Props) {
     const { email } = await props.params;
     const decodedEmail = decodeURIComponent(email);
     const auth = await withAuth();
-
     const user = auth.user as User;
+
     let isAdmin = false;
     if (user) isAdmin = user.email === decodedEmail;
     if (isAdmin) CreateUserIfNotExists(decodedEmail);
@@ -21,7 +21,6 @@ export default async function Page(props: Props) {
     const userInfo = await FetchUser(decodedEmail) as UserInfo;
     const contactNameEmail = decodeURIComponent(email);
     const contactName = contactNameEmail.split("@")[0];
-
     const nameToDisplay = userInfo ? userInfo.first_name + " " + userInfo.last_name : contactName;
 
     return (

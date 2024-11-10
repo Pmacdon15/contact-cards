@@ -1,45 +1,53 @@
 import { ContactInfo } from "@/types/types";
-export default function ListItem({ info, index, typeName, isEditing }: { info: ContactInfo, index: number, typeName: string, isEditing: boolean }) {
+export default function ListItem({ info, index, typeName, isEditing, }: { info: ContactInfo, index: number, typeName: string, isEditing: boolean}) {
+   
     return (
         !isEditing ? (
             <li
                 key={index}
-                className=" bg-[var(--container)]  text-[var(--primary)] shadow-lg p-2 items-center hover:scale-105 rounded-md " >
+                className="bg-[var(--container)] text-[var(--primary)] shadow-lg p-2 items-center rounded-md break-words"
+            >
                 {typeName}: <br />
-                {info.type === 1 &&
+                {info.type === 1 && (
                     <a
                         href={`tel:${info.value.replace(/-/g, "")}`}
-                        className="block w-full h-full">
+                        className="block w-full h-full"
+                    >
                         {info.value}
                     </a>
-                }
-                {info.type === 2 &&
+                )}
+                {info.type === 2 && (
                     <a
                         className="block w-full h-full"
-                        href={`mailto:${info.value}`}>
+                        href={`mailto:${info.value}`}
+                    >
                         {info.value}
                     </a>
-                }
-                {info.type === 3 &&
+                )}
+                {info.type === 3 && (
                     <a
                         className="block w-full h-full"
-                        href={`https://www.google.com/maps/search/${info.value}`}>
+                        href={`https://www.google.com/maps/search/${info.value}`}
+                    >
                         {info.value}
                     </a>
-                }
-                {info.type === 4 &&
+                )}
+                {info.type === 4 && (
                     <a
                         className="block w-full h-full"
-                        href={info.value} target="_blank">
+                        href={info.value}
+                        target="_blank"
+                    >
                         {info.value}
                     </a>
-                }
-            </li >) : (
+                )}
+            </li>) : (
             <li
                 key={index}
                 className="bg-[var(--container)] text-foreground p-2 items-center hover:scale-105 rounded-md flex w-full"
             >
-                {typeName}:<br />
+                {typeName}:
+                <br />
                 <textarea
                     name={info.id.toString()}
                     defaultValue={info.value}
