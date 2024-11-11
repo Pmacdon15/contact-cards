@@ -12,7 +12,7 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
         contactTypes: ContactTypes[],
         setIsEditing: (isEditing: boolean) => void,
         isEditing: boolean,
-        
+
     }) {
 
     const queryClient = useQueryClient()
@@ -47,15 +47,14 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                 mutationEditInfo.mutate(formData);
             }} >
             <ul className="flex flex-col items-center gap-2 ">
-                {contactInfo.map((info, index) => {
+                {contactInfo.sort((a, b) => a.id - b.id).map((info, index) => {
                     const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
-                    if (info.type === 5) {
-                        return null;
-                    }
                     return (
                         <div
                             className=" w-[90%]  text-[var(--primary)] shadow-lg border rounded-lg"
-                            key={index}>
+                            key={index}
+                        >
+                            <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
                             {isEditing &&
                                 <>
                                     <button
@@ -70,14 +69,12 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                                     {mutationDeleteInfo.isPending && <div>Deleting...</div>}
                                 </>
                             }
-                            <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing}  />
                         </div>
                     );
                 })}
             </ul>
             {mutationEditInfo.isSuccess && <div>Info edited!</div>}
-            {
-                isEditing &&
+            {isEditing &&
                 <button
                     disabled={mutationEditInfo.isPending}
                     type="submit"

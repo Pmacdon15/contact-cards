@@ -8,6 +8,7 @@ import { User, UserInfo } from '@/types/types';
 export async function GetContactInfo(email: string) {
     const ContactIno = await sql`Select * From  CCContactInfo Where user_email = ${email}`;
     // throw new Error("Contact info not found");
+    console.log("Contact Info", ContactIno.rows);
     return ContactIno.rows as ContactInfo[];
 }
 //MARK:GetContactTypes
@@ -38,11 +39,55 @@ export async function AddContactInfo(email: string, formData: FormData) {
     else return false;
 }
 
-//MARK: EditContactInfo
-export async function EditContactInfo(formData: FormData) {
+// MARK: EditContactInfo
+export async function EditContactInfo(formData: FormData): Promise<{ success: boolean, message: string }> {
     console.log("Form Data", formData);
 
+    // Authenticate and get the user email
+    const auth = await withAuth({ ensureSignedIn: true });
+    const user = auth.user as User;
+    const user_email = user.email;
+
+    if (!user_email) return { success: false, message: 'User email not found' };
+
+    try {
+        // Fetch existing contact information for the user
+        const contactInfo: ContactInfo[] = await GetContactInfo(user_email);
+        const contactInfoMap: Record<number, ContactInfo> = contactInfo.reduce((map, item) => {
+            map[item.type] = item;
+            return map;
+        }, {} as Record<number, ContactInfo>);  // Explicitly typed as Record<number, ContactInfo>
+
+        // Iterate over the FormData object
+        for (const [index, value] of formData.entries()) {
+            const typeKey = Number(index);
+            const contactItem = contactInfoMap[typeKey];
+
+            if (!contactItem) {
+                console.warn(`No contact info found for type: ${typeKey}`);
+                continue; // Skip if no matching contact type is found
+            }
+
+            // Update the contact information record in the database
+            const results = await sql`
+          UPDATE CCContactInfo
+          SET value = ${value as string}
+          WHERE type = ${contactItem.type} AND user_email = ${user_email}
+        `;
+
+            // Check if the update was successful
+            if (results.rowCount === 0) {
+                throw new Error(`Failed to update contact information with type ${contactItem.type}`);
+            }
+        }
+
+        return { success: true, message: 'Contact information updated successfully' };
+    } catch (error) {
+        console.error(error);
+        return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' };
+    }
 }
+
 
 //MARK: DeleteContactInfo
 export async function DeleteContactInfo({ email, id }: { email: string, id: number }) {
