@@ -40,12 +40,7 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
     });
 
     return (
-        <form
-            className="flex flex-col items-center text-2xl"
-            action={async (formData: FormData) => {
-                setIsEditing(false);
-                mutationEditInfo.mutate(formData);
-            }} >
+        <div className="flex flex-col items-center text-2xl">
             <ul className="flex flex-col items-center gap-2 ">
                 {contactInfo.sort((a, b) => a.id - b.id).map((info, index) => {
                     const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
@@ -54,17 +49,31 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                             className=" w-[90vw]  text-[--foreground] shadow-lg border rounded-lg"
                             key={index}
                         >
-                            <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
+                            <form
+                                action={async (formData: FormData) => {
+                                    setIsEditing(false);
+                                    mutationEditInfo.mutate(formData);
+                                }} >
+                                <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
+                            </form>
                             {isEditing &&
                                 <>
+                                    <button
+                                        disabled={mutationEditInfo.isPending}
+                                        type="submit"
+                                        className="p-2 text-lg items-center w-3/6 md:w-1/6 m-2 rounded-md text-black bg-green-400"
+                                    >
+                                        {mutationEditInfo.isPending ? "Saving ..." : "Save"}
+                                    </button>
+
                                     <button
                                         type="button"
                                         onClick={() => {
                                             mutationDeleteInfo.mutate({ email, id: info.id });
                                         }}
-                                        className="p-2 text-lg items-center w-2/6 m-2 rounded-md text-black bg-red-600"
+                                        className="p-2 text-lg items-center w-2/6 md:w-1/6 m-2 rounded-md text-black bg-red-400"
                                     >
-                                        Remove
+                                        Delete
                                     </button>
                                     {mutationDeleteInfo.isPending && <div>Deleting...</div>}
                                 </>
@@ -74,15 +83,15 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                 })}
             </ul>
             {mutationEditInfo.isSuccess && <div>Info edited!</div>}
-            {isEditing &&
+            {/* {isEditing &&
                 <button
                     disabled={mutationEditInfo.isPending}
                     type="submit"
-                    className="p-2 text-lg items-center w-3/6 m-2 rounded-md text-black bg-green-600"
+                    className="p-2 text-lg items-center w-3/6 md:w-1/6 m-2 rounded-md text-black bg-green-400"
                 >
                     {mutationEditInfo.isPending ? "Saving ..." : "Save"}
                 </button>
-            }
-        </form >
+            } */}
+        </div>
     );
 };

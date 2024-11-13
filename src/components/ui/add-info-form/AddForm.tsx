@@ -42,7 +42,7 @@ export default function AddForm({ contactTypes, setIsAdding, email }: { contactT
       <button
         disabled={mutationAddInfo.isPending}
         type="submit"
-        className="p-2 items-center w-3/6  md:w-1/6 m-2 rounded-md text-black bg-green-400"
+        className="p-2 items-center w-2/6  md:w-1/6 m-2 rounded-md text-black bg-green-400"
       >
         {mutationAddInfo.isPending ? "Saving..." : "Save"}
       </button>
