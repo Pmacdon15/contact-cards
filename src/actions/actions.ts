@@ -87,14 +87,19 @@ export async function CreateUserIfNotExists(email: string,) {
     const auth = await withAuth({ ensureSignedIn: true });
     const user = auth.user as User;
     if (user.email != email) return false;
-    const userExists = await sql`Select * From CCUsers Where email = ${email}`;
-    if (userExists.rows.length > 0) {
-        const results = await sql`Insert Into CCUsers (email, first_name, last_name, profile_image_url) Values (${email}, ${user.firstName}, ${user.lastName}, ${user.profilePictureUrl})`;
-        if (results.rows.length > 0) return true;
-        else return false;
+    console.log("Create User", email);
+    try {
+        const userExists = await sql`Select * From CCUsers Where email = ${email}`;
+        if (userExists) {
+            const results = await sql`Insert Into CCUsers (email, first_name, last_name, profile_image_url) Values (${email}, ${user.firstName}, ${user.lastName}, ${user.profilePictureUrl})`;
+            if (results.rows.length > 0) return true;
+            else return false;
+        }
+    } catch (error) {
+        console.log("Error", error);
+        return false;
     }
 }
-
 //MARK: Fetch User
 export async function FetchUser(email: string) {
     const user = await sql`Select * From CCUsers Where email = ${email}`;

@@ -63,7 +63,8 @@ VALUES
         'https://www.patmac.org'
     ),
     (
-        'pmacdonald15@gmail.com' 6,
+        'pmacdonald15@gmail.com' ,
+        6,
         'Personal',
         'patrick-macdonald-231640285'
     ),
@@ -73,3 +74,5 @@ VALUES
         'Personal',
         'Pmacdon15'
     );
+
+    select * from  CCUsers;
