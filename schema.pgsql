@@ -31,7 +31,10 @@ VALUES
     ('Phone Number'),
     ('Email'),
     ('Address'),
-    ('Web Site');
+    ('Web Site'),
+    ('Note'),
+    ('Linked In'),
+    ('Git Hub');
 
 INSERT INTO
     CCContactInfo (

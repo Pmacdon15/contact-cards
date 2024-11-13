@@ -8,7 +8,7 @@ import { User, UserInfo } from '@/types/types';
 export async function GetContactInfo(email: string) {
     const ContactIno = await sql`Select * From  CCContactInfo Where user_email = ${email}`;
     // throw new Error("Contact info not found");
-    console.log("Contact Info", ContactIno.rows);
+    // console.log("Contact Info", ContactIno.rows);
     return ContactIno.rows as ContactInfo[];
 }
 //MARK:GetContactTypes
@@ -41,8 +41,6 @@ export async function AddContactInfo(email: string, formData: FormData) {
 
 // MARK: EditContactInfo
 export async function EditContactInfo(formData: FormData): Promise<{ success: boolean, message: string }> {
-    console.log("Form Data", formData);
-
     // Authenticate and get the user email
     const auth = await withAuth({ ensureSignedIn: true });
     const user = auth.user as User;
@@ -51,34 +49,17 @@ export async function EditContactInfo(formData: FormData): Promise<{ success: bo
     if (!user_email) return { success: false, message: 'User email not found' };
 
     try {
-        // Fetch existing contact information for the user
-        const contactInfo: ContactInfo[] = await GetContactInfo(user_email);
-        const contactInfoMap: Record<number, ContactInfo> = contactInfo.reduce((map, item) => {
-            map[item.type] = item;
-            return map;
-        }, {} as Record<number, ContactInfo>);  // Explicitly typed as Record<number, ContactInfo>
+        const entries = formData.entries();
+        const entry = entries.next().value;
+        if (!entry) {
+            return { success: false, message: 'Invalid form data' };
+        }
+        const [id, value] = entry;
 
-        // Iterate over the FormData object
-        for (const [index, value] of formData.entries()) {
-            const typeKey = Number(index);
-            const contactItem = contactInfoMap[typeKey];
+        const results = await sql`Update CCContactInfo Set value = ${value.toString()} Where id = ${id}`;
 
-            if (!contactItem) {
-                console.warn(`No contact info found for type: ${typeKey}`);
-                continue; // Skip if no matching contact type is found
-            }
-
-            // Update the contact information record in the database
-            const results = await sql`
-          UPDATE CCContactInfo
-          SET value = ${value as string}
-          WHERE type = ${contactItem.type} AND user_email = ${user_email}
-        `;
-
-            // Check if the update was successful
-            if (results.rowCount === 0) {
-                throw new Error(`Failed to update contact information with type ${contactItem.type}`);
-            }
+        if (results.rowCount === 0) {
+            return { success: false, message: `No row found with ID ${id}` };
         }
 
         return { success: true, message: 'Contact information updated successfully' };
