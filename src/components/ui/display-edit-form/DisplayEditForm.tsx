@@ -51,7 +51,7 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                     const typeName = contactTypes.find((type) => type.id === info.type)?.name || "Unknown";
                     return (
                         <div
-                            className=" w-[90%]  text-[var(--primary)] shadow-lg border rounded-lg"
+                            className=" w-[90vw]  text-[--foreground] shadow-lg border rounded-lg"
                             key={index}
                         >
                             <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />

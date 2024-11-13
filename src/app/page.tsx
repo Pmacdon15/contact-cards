@@ -1,4 +1,5 @@
 import Button from "@/components/ui/button/Button";
+import SignInButtons from "@/components/ui/sign-in-sign-up-buttons/SignInButtons";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { redirect } from "next/navigation";
 export default async function Page() {
@@ -25,9 +26,10 @@ export default async function Page() {
         <input className="w-8 h-8 m-2" type="checkbox"></input>
         <label>I Agree with terms and conditions.</label>
       </div>
-      <Button
+      <SignInButtons />
+      {/* <Button
       caption="Home"
-      />
+      /> */}
     </div>
   );
 }

@@ -61,7 +61,7 @@ const List = ({ email, isAdmin, contactName }: ListProps) => {
  
 
   return (
-    <div className="flex flex-col items-center justify-center border shadow-xl bg-foreground w-full h-5/6 p-2 gap-2 rounded-sm">
+    <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6 p-2 gap-2 rounded-sm">
       <DisplayEditForm
         email={email}
         contactInfo={contactInfo}
