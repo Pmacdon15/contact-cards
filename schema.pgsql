@@ -12,7 +12,7 @@ CREATE TABLE
         id SERIAL PRIMARY KEY,
         user_email VARCHAR(255) NOT NULL,
         type INTEGER REFERENCES CCContactTypes (id),
-        name VARCHAR(255) NOT NULL DEFAULT 'Home',
+        name VARCHAR(255) NOT NULL DEFAULT 'Work',
         value VARCHAR(255) NOT NULL
     );
 
@@ -47,32 +47,32 @@ VALUES
     (
         'pmacdonald15@gmail.com',
         1,
-        'Home',
+        'Work',
         '403-975-5053'
     ),
     (
         'pmacdonald15@gmail.com',
         2,
-        'Home',
+        'Work',
         'pmacdonald15@gmail.com'
     ),
     (
         'pmacdonald15@gmail.com',
         4,
-        'Personal',
+        'Work',
         'https://www.patmac.org'
     ),
     (
         'pmacdonald15@gmail.com' ,
         6,
-        'Personal',
+        'Work',
         'patrick-macdonald-231640285'
     ),
     (
         'pmacdonald15@gmail.com',
         7,
-        'Personal',
+        'Work',
         'Pmacdon15'
     );
 
-    select * from  CCUsers;
+    select * from  CCContactInfo;
