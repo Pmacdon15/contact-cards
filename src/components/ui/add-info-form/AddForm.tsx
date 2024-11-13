@@ -5,7 +5,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 export default function AddForm({ contactTypes, setIsAdding, email }: { contactTypes: ContactTypes[], setIsAdding: (isAdding: boolean) => void, email: string }) {
   const queryClient = useQueryClient()
   const boundWithData = AddContactInfo.bind(null, email);
-  
+
   const mutationAddInfo = useMutation({
     mutationFn: boundWithData,
     onError: (error) => {
@@ -27,11 +27,9 @@ export default function AddForm({ contactTypes, setIsAdding, email }: { contactT
         name="type"
         className="p-2 items-center w-3/6 m-2 rounded-md text-black bg-white">
         {contactTypes.map((type) => (
-          type.id !== 5 && (
-            <option key={type.id} value={type.id}>
-              {type.name}
-            </option>
-          )
+          <option key={type.id} value={type.id}>
+            {type.name}
+          </option>
         ))}
       </select>
       <input
