@@ -8,7 +8,7 @@ import { User, UserInfo } from '@/types/types';
 export async function GetContactInfo(email: string) {
     const ContactIno = await sql`Select * From  CCContactInfo Where user_email = ${email}`;
     // throw new Error("Contact info not found");
-    console.log("Contact Info", ContactIno.rows);
+    // console.log("Contact Info", ContactIno.rows);
     return ContactIno.rows as ContactInfo[];
 }
 //MARK:GetContactTypes
