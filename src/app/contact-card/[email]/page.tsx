@@ -28,7 +28,7 @@ export default async function Page(props: Props) {
             <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
                 {userInfo && <ProfileImage imageUrl={userInfo.profile_image_url} />}
                 <PageHeader contactName={nameToDisplay} />
-                <List contactName={contactName} isAdmin={isAdmin} email={decodedEmail} />
+                <List contactName={nameToDisplay} isAdmin={isAdmin} email={decodedEmail} />
             </div>
             {!user ?
                 <SignInButtons />
