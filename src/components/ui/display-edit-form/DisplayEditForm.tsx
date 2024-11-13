@@ -5,12 +5,11 @@ import { EditContactInfo, DeleteContactInfo } from "@/actions/actions";
 
 
 
-export default function DisplayEditForm({ email, contactInfo, contactTypes, setIsEditing, isEditing }:
+export default function DisplayEditForm({ email, contactInfo, contactTypes, isEditing }:
     {
         email: string,
         contactInfo: ContactInfo[],
         contactTypes: ContactTypes[],
-        setIsEditing: (isEditing: boolean) => void,
         isEditing: boolean,
 
     }) {

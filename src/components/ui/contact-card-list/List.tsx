@@ -65,8 +65,7 @@ const List = ({ email, isAdmin, contactName }: ListProps) => {
       <DisplayEditForm
         email={email}
         contactInfo={contactInfo}
-        contactTypes={contactTypes}
-        setIsEditing={setIsEditing}
+        contactTypes={contactTypes}        
         isEditing={isEditing}
       />
       {isAdmin &&
