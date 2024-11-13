@@ -1,4 +1,3 @@
-import Button from "@/components/ui/button/Button";
 import SignInButtons from "@/components/ui/sign-in-sign-up-buttons/SignInButtons";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import { redirect } from "next/navigation";
