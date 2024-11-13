@@ -38,23 +38,28 @@ export default function DownloadButton({ contactInfo, contactName }: { contactIn
   );
 }
 
+
 const generateVCard = (contactName: string, contactInfo: ContactInfo[]) => {
   let vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${contactName}\n`;
 
   contactInfo.forEach((info) => {
-    const type = typeMapping[info.type];
-    if (!type) return;
-
     switch (info.type) {
       case 3:
         const addressParts = info.value.split(',').map((part) => part.trim());
         const formattedAddress = addressParts.join(';');
         vCardData += `ADR;TYPE=${info.name}:${formattedAddress}\n`;
         break;
+      case 6: // LinkedIn
+        vCardData += `URL;TYPE=LinkedIn:https://www.linkedin.com/in/${info.value}\n`;
+        break;
+      case 7: // GitHub
+        vCardData += `URL;TYPE=GitHub:https://github.com/${info.value}\n`;
+        break;
       default:
-        vCardData += `${type};TYPE=${info.name}:${info.value}\n`;
+        vCardData += `${typeMapping[info.type]};TYPE=${info.name}:${info.value}\n`;
     }
   });
 
+  console.log(vCardData);
   return `${vCardData}END:VCARD`;
 };
