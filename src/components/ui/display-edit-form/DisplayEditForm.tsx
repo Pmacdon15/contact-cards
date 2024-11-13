@@ -27,8 +27,6 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
         },
     });
 
-
-
     const mutationDeleteInfo = useMutation({
         mutationFn: ({ email, id }: { email: string, id: number }) => DeleteContactInfo({ email, id }),
         onError: (error) => {
@@ -51,13 +49,12 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                         >
                             <form
                                 action={async (formData: FormData) => {
-                                    setIsEditing(false);
                                     mutationEditInfo.mutate(formData);
                                 }} >
                                 <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
-                            </form>
-                            {isEditing &&
-                                <>
+
+                                {isEditing &&
+
                                     <button
                                         disabled={mutationEditInfo.isPending}
                                         type="submit"
@@ -65,7 +62,11 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                                     >
                                         {mutationEditInfo.isPending ? "Saving ..." : "Save"}
                                     </button>
+                                }
+                            </form>
 
+                            {isEditing &&
+                                <>
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -77,21 +78,13 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, setI
                                     </button>
                                     {mutationDeleteInfo.isPending && <div>Deleting...</div>}
                                 </>
+
                             }
                         </div>
                     );
                 })}
-            </ul>
-            {mutationEditInfo.isSuccess && <div>Info edited!</div>}
-            {/* {isEditing &&
-                <button
-                    disabled={mutationEditInfo.isPending}
-                    type="submit"
-                    className="p-2 text-lg items-center w-3/6 md:w-1/6 m-2 rounded-md text-black bg-green-400"
-                >
-                    {mutationEditInfo.isPending ? "Saving ..." : "Save"}
-                </button>
-            } */}
-        </div>
+            </ul >
+            {mutationEditInfo.isSuccess && <div>Info edited!</div>}            
+        </div >
     );
 };

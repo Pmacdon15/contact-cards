@@ -101,7 +101,7 @@ export default function ListItem({
             <Image src='/linkedinIcon.png' width={56} height={56} alt="Picture of the author"/>
           </div>
 
-          <a className="block w-full h-full" href={'https://www.linkedin.com/in'+info.value} target="_blank">
+          <a className="block w-full h-full" href={'https://www.linkedin.com/in/'+info.value} target="_blank">
             {info.value}
           </a>
         </div>
@@ -112,7 +112,7 @@ export default function ListItem({
             <Image src='/githubIcon.png' width={56} height={56} alt="Picture of the author"/>
           </div>
 
-          <a className="block w-full h-full" href={'https://www.github.com'+info.value} target="_blank">
+          <a className="block w-full h-full" href={'https://www.github.com/'+info.value} target="_blank">
             {info.value}
           </a>
         </div>
