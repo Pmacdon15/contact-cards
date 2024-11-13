@@ -29,11 +29,13 @@ export default async function Page(props: Props) {
                 <PageHeader contactName={nameToDisplay} />
                 <List contactName={nameToDisplay} isAdmin={isAdmin} email={decodedEmail} />
             </div>
-            {!user ?
-                <SignInButtons />
-                :
-                <SignOutButton user={user} />
-            }
+            <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-xl p-4">
+                {!user ?
+                    <SignInButtons />
+                    :
+                    <SignOutButton user={user} />
+                }
+            </div>
         </>
     );
 }
