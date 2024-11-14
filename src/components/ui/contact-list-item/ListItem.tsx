@@ -64,12 +64,20 @@ export default function ListItem({
         </div>
       )}
       {info.type === 3 && (
-        <a
-          className="block w-full h-full"
-          href={`https://www.google.com/maps/search/${info.value}`}
-        >
-          {info.value}
-        </a>
+        <div className="flex justify-center items-center ">
+          
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-14">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <a
+              className="block w-full h-full ml-2"
+              href={`https://www.google.com/maps/search/${info.value}`}
+            >
+              {info.value}
+            </a>
+          
+        </div>
       )}
       {info.type === 4 && (
         <div className="flex justify-center items-center">
@@ -98,10 +106,10 @@ export default function ListItem({
       {info.type === 6 && (
         <div className="flex justify-center items-center">
           <div className="mr-4">
-            <Image src='/linkedinIcon.png' width={56} height={56} alt="Picture of the author"/>
+            <Image src='/linkedinIcon.png' width={56} height={56} alt="Picture of the author" />
           </div>
 
-          <a className="block w-full h-full" href={'https://www.linkedin.com/in/'+info.value} target="_blank">
+          <a className="block w-full h-full" href={'https://www.linkedin.com/in/' + info.value} target="_blank">
             {info.value}
           </a>
         </div>
@@ -109,10 +117,10 @@ export default function ListItem({
       {info.type === 7 && (
         <div className="flex justify-center items-center">
           <div className="mr-4">
-            <Image src='/githubIcon.png' width={56} height={56} alt="Picture of the author"/>
+            <Image src='/githubIcon.png' width={56} height={56} alt="Picture of the author" />
           </div>
 
-          <a className="block w-full h-full" href={'https://www.github.com/'+info.value} target="_blank">
+          <a className="block w-full h-full" href={'https://www.github.com/' + info.value} target="_blank">
             {info.value}
           </a>
         </div>
