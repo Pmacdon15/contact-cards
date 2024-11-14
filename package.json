@@ -20,7 +20,8 @@
     "file-saver": "^2.0.5",
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021"
+    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "vcard-creator": "^0.7.1"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.7",

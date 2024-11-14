@@ -35,6 +35,7 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, isEd
             queryClient.invalidateQueries({ queryKey: ['contactInfo', email] });
         },
     });
+    console.log(contactInfo);
 
     return (
         <div className="flex flex-col items-center text-2xl">

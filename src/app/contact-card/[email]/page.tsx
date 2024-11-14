@@ -18,7 +18,7 @@ export default async function Page(props: Props) {
     if (user) isAdmin = user.email === decodedEmail;
     if (isAdmin) await CreateUserIfNotExists(decodedEmail);
     const userInfo = await FetchUser(decodedEmail) as UserInfo;
-    const contactNameEmail = decodeURIComponent(email);
+    const contactNameEmail = await decodeURIComponent(email);
     const contactName = contactNameEmail.split("@")[0];
     const nameToDisplay = userInfo ? userInfo.first_name + " " + userInfo.last_name : contactName;
 
@@ -27,7 +27,9 @@ export default async function Page(props: Props) {
             <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
                 {userInfo && <ProfileImage imageUrl={userInfo.profile_image_url} />}
                 <PageHeader contactName={nameToDisplay} />
-                <List contactName={nameToDisplay} isAdmin={isAdmin} email={decodedEmail} />
+                {userInfo &&
+                    <List contactName={nameToDisplay} isAdmin={isAdmin} email={decodedEmail} profileImageUrl={userInfo.profile_image_url} />
+                }
             </div>
             <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-xl p-4">
                 {!user ?

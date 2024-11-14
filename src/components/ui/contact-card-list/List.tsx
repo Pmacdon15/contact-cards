@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ContactInfo, ContactTypes } from "@/types/types";
 import { useState } from "react";
 import EditButton from "../save-edit-button/EditButton";
-import { GetContactInfo, GetContactTypes} from "@/actions/actions";
+import { GetContactInfo, GetContactTypes } from "@/actions/actions";
 import AddForm from "../add-info-form/AddForm";
 import DisplayEditForm from "../display-edit-form/DisplayEditForm";
 import AddButton from "@/components/ui/add-information-button/AddButton";
@@ -41,9 +41,10 @@ interface ListProps {
   email: string;
   isAdmin: boolean;
   contactName: string;
+  profileImageUrl: string;
 }
 
-const List = ({ email, isAdmin, contactName }: ListProps) => {
+const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
 
   const { data: contactInfo, isLoading: infoLoading, isError: errorInfo } = useContactInfo(email);
   const { data: contactTypes, isLoading: typesLoading, isError: errorTypes } = useContactTypes();
@@ -58,14 +59,14 @@ const List = ({ email, isAdmin, contactName }: ListProps) => {
   if (!contactInfo || contactInfo.length === 0) return <Error errorType="no contact info found" />;
   if (!contactTypes || contactTypes.length === 0) return <Error errorType="no contact types" />;
 
- 
+
 
   return (
     <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6 p-2 gap-2 rounded-sm">
       <DisplayEditForm
         email={email}
         contactInfo={contactInfo}
-        contactTypes={contactTypes}        
+        contactTypes={contactTypes}
         isEditing={isEditing}
       />
       {isAdmin &&
@@ -84,7 +85,7 @@ const List = ({ email, isAdmin, contactName }: ListProps) => {
           }
         </>
       }
-      <DownloadButton contactInfo={contactInfo} contactName={contactName} />
+      <DownloadButton contactInfo={contactInfo} contactName={contactName} profileImageUrl={profileImageUrl} />
     </div>
   );
 }
