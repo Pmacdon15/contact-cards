@@ -10,6 +10,7 @@ import AddButton from "@/components/ui/add-information-button/AddButton";
 import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
 import Loading from '@/components/ui/loading/Loading';
 import Error from '@/components/ui/error/Error';
+import BottomFormButtons from '../bottom-form-buttons/BottomFormButtons';
 
 // Fetch contact info
 const useContactInfo = (email: string) => {
@@ -54,37 +55,48 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
 
   if (infoLoading) return <Loading typeOfLoading={"Info"} />;
   if (errorInfo) return <Error errorType="Loading contact info" />;
-  if (typesLoading) return <Loading typeOfLoading={"Contact Types"} />;
+  if (typesLoading) return <Loading typeOfLoading={"Contact Types"} />
   if (errorTypes) return <Error errorType=" Loading contact types" />;
-  if (!contactInfo || contactInfo.length === 0) return <Error errorType="no contact info found" />;
-  if (!contactTypes || contactTypes.length === 0) return <Error errorType="no contact types" />;
 
-
-
+  if (!contactInfo || contactInfo.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6  rounded-sm">
+        No information to load.
+        {contactTypes && contactInfo &&
+          <BottomFormButtons
+            isAdmin={isAdmin}
+            isAdding={isAdding}
+            setIsAdding={setIsAdding}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            contactInfo={contactInfo}
+            contactTypes={contactTypes}
+            email={email}
+          />
+        }
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6 p-2 gap-2 rounded-sm">
-      <DisplayEditForm
-        email={email}
-        contactInfo={contactInfo}
-        contactTypes={contactTypes}
-        isEditing={isEditing}
-      />
-      {isAdmin &&
-        <>
-          {isAdding &&
-            <AddForm
-              contactTypes={contactTypes}
-              setIsAdding={setIsAdding}
-              email={email} />
-          }
-          {!isEditing &&
-            <AddButton isAdding={isAdding} setIsAdding={setIsAdding} />
-          }
-          {!isAdding && contactInfo.length !== 0 &&
-            <EditButton isEditing={isEditing} setIsEditing={setIsEditing} />
-          }
-        </>
-      }
+      {contactTypes && contactInfo &&
+        <DisplayEditForm
+          email={email}
+          contactInfo={contactInfo}
+          contactTypes={contactTypes}
+          isEditing={isEditing}
+        />}
+      {contactTypes &&
+        <BottomFormButtons
+          isAdmin={isAdmin}
+          isAdding={isAdding}
+          setIsAdding={setIsAdding}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          contactInfo={contactInfo}
+          contactTypes={contactTypes}
+          email={email}
+        />}
       <DownloadButton contactInfo={contactInfo} contactName={contactName} profileImageUrl={profileImageUrl} />
     </div>
   );

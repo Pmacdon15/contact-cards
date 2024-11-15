@@ -54,7 +54,6 @@ export default function DisplayEditForm({ email, contactInfo, contactTypes, isEd
                                 <ListItem key={index} info={info} index={index} typeName={typeName} isEditing={isEditing} />
 
                                 {isEditing &&
-
                                     <button
                                         disabled={mutationEditInfo.isPending}
                                         type="submit"

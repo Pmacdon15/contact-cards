@@ -1,3 +1,4 @@
+-- Active: 1731700684828@@ep-square-snowflake-a41l6rrd-pooler.us-east-1.aws.neon.tech@5432@verceldb
 DROP TABLE IF EXISTS CCContactInfo;
 
 DROP TABLE IF EXISTS CCContactTypes;
