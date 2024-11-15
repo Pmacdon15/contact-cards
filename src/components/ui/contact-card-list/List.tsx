@@ -2,11 +2,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { ContactInfo, ContactTypes } from "@/types/types";
 import { useState } from "react";
-import EditButton from "../save-edit-button/EditButton";
 import { GetContactInfo, GetContactTypes } from "@/actions/actions";
-import AddForm from "../add-info-form/AddForm";
 import DisplayEditForm from "../display-edit-form/DisplayEditForm";
-import AddButton from "@/components/ui/add-information-button/AddButton";
 import DownloadButton from "@/components/ui/save-contact-card-button/DownloadButton";
 import Loading from '@/components/ui/loading/Loading';
 import Error from '@/components/ui/error/Error';
