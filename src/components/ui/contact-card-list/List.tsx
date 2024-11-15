@@ -61,7 +61,7 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
   if (!contactInfo || contactInfo.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6  rounded-sm">
-        No information to load.
+        <p className='text-[var(--primary)] text-2xl'>No information to load.</p>
         {contactTypes && contactInfo &&
           <BottomFormButtons
             isAdmin={isAdmin}

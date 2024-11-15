@@ -37,43 +37,43 @@ VALUES
     ('Linked In'),
     ('Git Hub');
 
-INSERT INTO
-    CCContactInfo (
-        user_email,
-        type,
-        name,
-        value
-    )
-VALUES
-    (
-        'pmacdonald15@gmail.com',
-        1,
-        'Work',
-        '403-975-5053'
-    ),
-    (
-        'pmacdonald15@gmail.com',
-        2,
-        'Work',
-        'pmacdonald15@gmail.com'
-    ),
-    (
-        'pmacdonald15@gmail.com',
-        4,
-        'Work',
-        'https://www.patmac.org'
-    ),
-    (
-        'pmacdonald15@gmail.com' ,
-        6,
-        'Work',
-        'patrick-macdonald-231640285'
-    ),
-    (
-        'pmacdonald15@gmail.com',
-        7,
-        'Work',
-        'Pmacdon15'
-    );
+-- INSERT INTO
+--     CCContactInfo (
+--         user_email,
+--         type,
+--         name,
+--         value
+--     )
+-- VALUES
+--     (
+--         'pmacdonald15@gmail.com',
+--         1,
+--         'Work',
+--         '403-975-5053'
+--     ),
+--     (
+--         'pmacdonald15@gmail.com',
+--         2,
+--         'Work',
+--         'pmacdonald15@gmail.com'
+--     ),
+--     (
+--         'pmacdonald15@gmail.com',
+--         4,
+--         'Work',
+--         'https://www.patmac.org'
+--     ),
+--     (
+--         'pmacdonald15@gmail.com' ,
+--         6,
+--         'Work',
+--         'patrick-macdonald-231640285'
+--     ),
+--     (
+--         'pmacdonald15@gmail.com',
+--         7,
+--         'Work',
+--         'Pmacdon15'
+--     );
 
     select * from  CCContactInfo;
