@@ -76,6 +76,7 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
   }
   return (
     <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6 p-2 gap-2 rounded-sm">
+       <DownloadButton contactInfo={contactInfo} contactName={contactName} profileImageUrl={profileImageUrl} />
       {contactTypes && contactInfo &&
         <DisplayEditForm
           email={email}
@@ -83,6 +84,7 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
           contactTypes={contactTypes}
           isEditing={isEditing}
         />}
+        
       {contactTypes &&
         <BottomFormButtons
           isAdmin={isAdmin}
@@ -94,7 +96,7 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
           contactTypes={contactTypes}
           email={email}
         />}
-      <DownloadButton contactInfo={contactInfo} contactName={contactName} profileImageUrl={profileImageUrl} />
+     
     </div>
   );
 }
