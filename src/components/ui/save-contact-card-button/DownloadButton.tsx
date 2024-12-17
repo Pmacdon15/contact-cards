@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import { ContactInfo } from '@/types/types';
 import VCard from 'vcard-creator'
 
-export default function DownloadButton({ contactInfo, contactName, profileImageUrl }: { contactInfo: ContactInfo[], contactName: string, profileImageUrl: string | null }) {
+export default function DownloadButton({ contactInfo, contactName}: { contactInfo: ContactInfo[], contactName: string}) {
   const handleDownload = async () => {
     try {
       const vCardData = await generateVCard(contactName, contactInfo || '');
@@ -70,26 +70,26 @@ const generateVCard = async (contactName: string, contactInfo: ContactInfo[]) =>
   return vcard.toString();
 };
 
-async function getBase64Image(imageUrl: string) {
-  try {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    const reader = new FileReader();
-    return new Promise((resolve, reject) => {
-      reader.readAsDataURL(blob);
-      reader.onload = () => {
-        if (reader.result) {
-          resolve((reader.result as string).split(',')[1]);
-        } else {
-          reject('Failed to load image');
-        }
-      };
-      reader.onerror = () => {
-        reject('Error loading image');
-      };
-    });
-  } catch (error) {
-    console.error('Error loading image:', error);
-    throw error;
-  }
-}
+// async function getBase64Image(imageUrl: string) {
+//   try {
+//     const response = await fetch(imageUrl);
+//     const blob = await response.blob();
+//     const reader = new FileReader();
+//     return new Promise((resolve, reject) => {
+//       reader.readAsDataURL(blob);
+//       reader.onload = () => {
+//         if (reader.result) {
+//           resolve((reader.result as string).split(',')[1]);
+//         } else {
+//           reject('Failed to load image');
+//         }
+//       };
+//       reader.onerror = () => {
+//         reject('Error loading image');
+//       };
+//     });
+//   } catch (error) {
+//     console.error('Error loading image:', error);
+//     throw error;
+//   }
+// }

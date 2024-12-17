@@ -24,14 +24,14 @@ export default async function Page(props: Props) {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center h-fit text-background rounded-sm gap-2 p-2">
+            <div className="flex flex-col justify-center items-center gap-2 p-2 rounded-sm h-fit text-background">
                 {userInfo && <ProfileImage imageUrl={userInfo.profile_image_url} />}
                 <PageHeader contactName={nameToDisplay} />
                 {userInfo &&
-                    <List contactName={nameToDisplay} isAdmin={isAdmin} email={decodedEmail} profileImageUrl={userInfo.profile_image_url} />
+                    <List contactName={nameToDisplay} isAdmin={isAdmin} email={decodedEmail} />
                 }
             </div>
-            <div className="flex bg-[var(--container)] text-[var(--primary)] border shadow-xl w-full justify-center items-center rounded-sm text-xl p-4">
+            <div className="flex justify-center items-center bg-[var(--container)] shadow-xl p-4 border rounded-sm w-full text-[var(--primary)] text-xl">
                 {!user ?
                     <SignInButtons />
                     :

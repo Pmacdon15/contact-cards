@@ -39,10 +39,9 @@ interface ListProps {
   email: string;
   isAdmin: boolean;
   contactName: string;
-  profileImageUrl: string;
 }
 
-const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
+const List = ({ email, isAdmin, contactName}: ListProps) => {
 
   const { data: contactInfo, isLoading: infoLoading, isError: errorInfo } = useContactInfo(email);
   const { data: contactTypes, isLoading: typesLoading, isError: errorTypes } = useContactTypes();
@@ -57,7 +56,7 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
 
   if (!contactInfo || contactInfo.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6  rounded-sm">
+      <div className="flex flex-col justify-center items-center bg-background shadow-xl border rounded-sm w-[96vw] h-5/6">
         <p className='text-[var(--primary)] text-2xl'>No information to load.</p>
         {contactTypes && contactInfo &&
           <BottomFormButtons
@@ -75,8 +74,8 @@ const List = ({ email, isAdmin, contactName, profileImageUrl }: ListProps) => {
     );
   }
   return (
-    <div className="flex flex-col items-center justify-center border shadow-xl bg-background w-[96vw] h-5/6 p-2 gap-2 rounded-sm">
-       <DownloadButton contactInfo={contactInfo} contactName={contactName} profileImageUrl={profileImageUrl} />
+    <div className="flex flex-col justify-center items-center gap-2 bg-background shadow-xl p-2 border rounded-sm w-[96vw] h-5/6">
+       <DownloadButton contactInfo={contactInfo} contactName={contactName} />
       {contactTypes && contactInfo &&
         <DisplayEditForm
           email={email}
