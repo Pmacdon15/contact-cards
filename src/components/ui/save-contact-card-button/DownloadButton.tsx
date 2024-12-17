@@ -5,7 +5,7 @@ import VCard from 'vcard-creator'
 export default function DownloadButton({ contactInfo, contactName, profileImageUrl }: { contactInfo: ContactInfo[], contactName: string, profileImageUrl: string | null }) {
   const handleDownload = async () => {
     try {
-      const vCardData = await generateVCard(contactName, contactInfo, profileImageUrl || '');
+      const vCardData = await generateVCard(contactName, contactInfo || '');
       const blob = new Blob([vCardData], { type: 'text/vcard' });
       saveAs(blob, `${contactName}.vcf`);
     } catch (error) {
@@ -23,7 +23,7 @@ export default function DownloadButton({ contactInfo, contactName, profileImageU
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
         fill="currentColor"
-        className="size-6 bg-[--foreground] h-16 w-36 rounded-full p-4"
+        className="bg-[--foreground] p-4 rounded-full w-36 h-16 size-6"
       >
         <path d="M8.75 2.75a.75.75 0 0 0-1.5 0v5.69L5.03 6.22a.75.75 0 0 0-1.06 1.06l3.5 3.5a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0-1.06-1.06L8.75 8.44V2.75Z" />
         <path d="M3.5 9.75a.75.75 0 0 0-1.5 0v1.5A2.75 2.75 0 0 0 4.75 14h6.5A2.75 2.75 0 0 0 14 11.25v-1.5a.75.75 0 0 0-1.5 0v1.5c0 .69-.56 1.25-1.25 1.25h-6.5c-.69 0-1.25-.56-1.25-1.25v-1.5Z" />
@@ -33,16 +33,16 @@ export default function DownloadButton({ contactInfo, contactName, profileImageU
 }
 
 
-const generateVCard = async (contactName: string, contactInfo: ContactInfo[], profileImageUrl: string) => {
+const generateVCard = async (contactName: string, contactInfo: ContactInfo[]) => {
   const vcard = new VCard();
 
   vcard.addName(contactName);
 
   // Add profile image
-  if (profileImageUrl) {
-    const imageData = await getBase64Image(profileImageUrl);
-    vcard.addPhoto(imageData as string, 'JPEG');
-  }
+  // if (profileImageUrl) {
+  //   const imageData = await getBase64Image(profileImageUrl);
+  //   vcard.addPhoto(imageData as string, 'JPEG');
+  // }
 
   contactInfo.forEach((info) => {
     switch (info.type) {
